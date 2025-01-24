@@ -16,6 +16,7 @@ require 'db_conexion.php';
     <!-- CDN Font Awasome -->
     <script src="https://kit.fontawesome.com/f60af16eb1.js" crossorigin="anonymous"></script>
     <title>BitBank</title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
 </head>
 
 <body class="body">
@@ -30,8 +31,8 @@ require 'db_conexion.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link text-light" href="registro.php">Registrar</a>
-                    <a class="nav-link text-light" href="login.php">Inicia Sesion</a>
+                    <a class="nav-link text-light nav-btns" href="registro.php">Registrar</a>
+                    <a class="nav-link text-light nav-btns" href="login.php">Inicia Sesion</a>
 
                 </div>
             </div>
@@ -107,7 +108,7 @@ require 'db_conexion.php';
 
     <div class="container-fluid footer mt-5 p-3 text-light bg-dark">
         <div class="row">
-            <div class="col-9 fs-3">El Banco Nacional de Mexico <i class="fa-regular fa-registered fs-5"></i></div>
+            <div class="col-9 fs-3">BitBank <i class="fa-regular fa-registered fs-5"></i></div>
             <div class="col-3 d-flex justify-content-around">
                 <i class="fa-brands fa-square-facebook fs-2"></i>
                 <i class="fa-brands fa-x-twitter fs-2"></i>

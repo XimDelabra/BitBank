@@ -13,7 +13,9 @@
 .navbar .logo {
     width: 30px;
 }
-
+.nav-btns:hover{
+    border-bottom: solid 2px white;
+}
 body {
     background:
         linear-gradient(135deg, #0000 18.75%, #e6eaf5 0 31.25%, #0000 0),
