@@ -11,9 +11,26 @@ if (isset($_POST['registrar'])) {
     $bytes = random_bytes(5);
     $password = substr(bin2hex($bytes), 0, 5);
 
-
     if (!empty($numero_cuenta) && !empty($nombre_cliente) && !empty($correo) && !empty($tipo_cuenta)) {
-        try {
+        #Verificamos que el correo no este registrado
+            $select = $cnnPDO->prepare("SELECT * FROM usuarios WHERE correo = ?");
+            $select->execute([$correo]);
+            $correo_registrado = $select->fetchColumn();
+
+        #Verificamos que el numero de cuenta no este registrado
+            $select_number = $cnnPDO->prepare("SELECT * FROM usuarios WHERE numero_cuenta = ?");
+            $select_number->execute([$numero_cuenta]);
+            $numero_registrado = $select_number->fetchColumn();
+
+        if ($correo_registrado > 0) {
+            $alertType = 'error';
+            $alertMessage = 'Mensaje: El correo ' . $correo . ' ya está registrado.';
+
+        } elseif ($numero_registrado > 0){
+            $alertType = 'error';
+            $alertMessage = 'Mensaje: El numero de cuenta ' . $numero_cuenta . ' ya está registrado.';
+
+        } else{
             $sql = $cnnPDO->prepare("INSERT INTO usuarios
                     (numero_cuenta,nombre,correo,tipo_cuenta,password) VALUES (?,?,?,?,?)");
             $sql->execute([$numero_cuenta, $nombre_cliente, $correo, $tipo_cuenta, $password]);
@@ -66,17 +83,10 @@ if (isset($_POST['registrar'])) {
 
             unset($sql);
             unset($cnnPDO);
-        } catch (PDOException $mensaje) {
-            if ($mensaje->getCode() == 23000) {
-                $alertType = 'error';
-                $alertMessage = 'Mensaje: El correo ya está registrado.';
-            } else {
-                $alertType = 'error';
-                $alertMessage = 'Mensaje: ' . $e->getMessage();
-            }
+        
         }
     } else {
-        $alertType = 'error';
+        $alertType = 'success';
         $alertMessage = 'Por favor, rellena todos los campos.';
     }
 }
@@ -90,7 +100,17 @@ if (isset($_POST['registrar'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/cleave.min.js"></script>
-    
+   
+    <style>
+        .notyf__icon i {
+            color: white !important;
+        }
+
+        .notyf__toast {
+            border-radius: 0px;
+            box-shadow: 0px 0px 2px 1px black;
+        }
+    </style>
 
 </head>
 
@@ -146,24 +166,56 @@ if (isset($_POST['registrar'])) {
         });
 
 
-        const notyf = new Notyf();
-
-        function showNotification(type, message) {
-            if (type === 'success') {
-                notyf.success(message);
-            } else if (type === 'error') {
-                notyf.open({
+        const notyf = new Notyf({
+            duration: 5000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [{
+                    type: 'success',
+                    background: '#e1e3e2', //#618573
+                    icon: {
+                        className: 'material-icons',
+                        tagName: 'i',
+                        text: 'check_circle',
+                    },
+                },
+                {
+                    type: 'error',
+                    background: '#3e3e40', //#856161
+                    icon: {
+                        className: 'material-icons',
+                        tagName: 'i',
+                        text: 'error',
+                    },
+                },
+                {
                     type: 'warning',
+                    background: '#6b7075', //#b8826b
+                    icon: {
+                        className: 'material-icons',
+                        tagName: 'i',
+                        text: 'warning',
+                    },
+                },
+
+            ],
+        });
+
+        // Función para mostrar la notificación
+        function showNotification(type, message) {
+            if (['success', 'error', 'warning'].includes(type)) {
+                notyf.open({
+                    type: type,
                     message: message,
-                    duration: 5000, 
-                    background: 'orange', 
                 });
             }
         }
 
         // Mostrar notificación si existe un mensaje desde PHP
         <?php if (!empty($alertMessage)) : ?>
-        showNotification('<?= $alertType ?>', '<?= $alertMessage ?>');
+            showNotification('<?= $alertType ?>', '<?= $alertMessage ?>');
         <?php endif; ?>
     </script>
 </body>
