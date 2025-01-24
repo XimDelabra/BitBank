@@ -1,5 +1,5 @@
 <?php
-require 'cdn.html';
+
 /* Conectar a una base de datos de MySQL Local */
 $utf8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 

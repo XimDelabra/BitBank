@@ -1,36 +1,6 @@
 <?php
 require 'db_conexion.php';
-session_start();
 
-# Inicia Código de LOGIN
-if (isset($_POST['login'])) {
-    $cuenta_correo = $_POST['cuenta_correo'];
-    $password = $_POST['password'];;
-
-    if (!empty($cuenta_correo) && !empty($password)) {
-
-        $select = $cnnPDO->prepare('SELECT * from usuarios WHERE (correo = ? OR numero_cuenta = ?) AND password = ?');
-        $select->execute([$cuenta_correo, $cuenta_correo, $password]);
-        $count = $select->rowCount();
-        $campo = $select->fetch(PDO::FETCH_ASSOC);
-
-        if ($count) {
-            $_SESSION['numero_cuenta'] = $campo['numero_cuenta'];
-            $_SESSION['correo'] = $campo['correo'];
-            $_SESSION['nombre'] = $campo['nombre'];
-            $_SESSION['tipo_cuenta'] = $campo['tipo_cuenta'];
-            $_SESSION['password'] = $campo['password'];
-
-            header('location: mysesion.php');
-        } else {
-            $alertType = 'error';
-            $alertMessage = 'Mensaje: Credenciales Incorrectas.';
-        }
-    } else {
-        $alertType = 'warning';
-        $alertMessage = 'Mensaje: Por favor, rellenar campos vacios.';
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,13 +9,24 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BitBank | Iniciar Sesion </title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- CDN Boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="style.css">
     <!-- Poppins Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    
+    <!-- CDN de Notify alert-->
+    <link rel="stylesheet" href="https://unpkg.com/notyf/notyf.min.css">
+    <script src="https://unpkg.com/notyf/notyf.min.js"></script>
+
+    <!-- Iconos para alertas-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body class="body-login">
@@ -70,7 +51,7 @@ if (isset($_POST['login'])) {
     <div class="container position-relative">
         <div class="container login-form mt-3 mb-5 py-4 px-5 position-absolute top-50 start-0">
             <div class="fs-3">Inicio de Sesion</div>
-            <form method="POST" action="">
+            <form action="">
                 <div class="mb-3">
                     <label for="cuenta_correo" class="form-label ">Número de Cuenta / Correo</label>
                     <input type="text" class="form-control" id="cuenta_correo" name="cuenta_correo">
@@ -81,13 +62,13 @@ if (isset($_POST['login'])) {
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-light" style="width: 100%;" name="login">Iniciar Sesion</button>
+                    <button id="login" type="button" class="btn btn-light" style="width: 100%;" name="login">Iniciar Sesion</button>
                 </div>
             </form>
         </div>
     </div>
     <script>
-        
+
         const notyf = new Notyf({
             duration: 5000,
             position: {
@@ -134,12 +115,43 @@ if (isset($_POST['login'])) {
                 });
             }
         }
-        // Mostrar notificación si existe un mensaje desde PHP
-        <?php if (!empty($alertMessage)) : ?>
-            showNotification('<?= $alertType ?>', '<?= $alertMessage ?>');
-        <?php endif; ?>
+
+        //Funcion para login
+        $(document).ready(function() {
+            $(document).on("click", "#login", function() {
+
+                
+                var cuenta_correo = $('#cuenta_correo').val();
+                var password = $('#password').val();
+
+                if (!cuenta_correo) {
+                    showNotification('warning', 'Por favor, rellena el campo "Numero de cuenta / Correo".');
+                } else if (!password) {
+                    showNotification('warning', 'Por favor, rellena el campo "Contrasena".');
+                } else {
+                    $.ajax({
+                        url: "loguear.php",
+                        type: "POST",
+                        data: {
+                            cuenta_correo: cuenta_correo,
+                            password: password, 
+                        },
+                        success: function(data) {
+                            var response = data;
+
+                            if (response.status === 'success') {
+                                window.location.href = 'mysesion.php';
+                            } else {
+                                showNotification('error', response.message);
+                            }
+                        }
+
+                    });
+                }
+            });
+        });
     </script>
-    
+
 </body>
 
 </html>
