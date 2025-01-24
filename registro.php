@@ -142,7 +142,7 @@ if (isset($_POST['registrar'])) {
             unset($cnnPDO);
         }
     } else {
-        $alertType = 'success';
+        $alertType = 'warning';
         $alertMessage = 'Por favor, rellena todos los campos.';
     }
 }
@@ -233,7 +233,6 @@ if (isset($_POST['registrar'])) {
             blocks: [4, 4, 4, 4], // Cuatro bloques de 4 dígitos
             numericOnly: true
         });
-
 
         const notyf = new Notyf({
             duration: 5000,

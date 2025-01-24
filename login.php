@@ -1,15 +1,15 @@
 <?php
 require 'db_conexion.php';
 session_start();
+
 # Inicia Código de LOGIN
 if (isset($_POST['login'])) {
     $cuenta_correo = $_POST['cuenta_correo'];
     $password = $_POST['password'];;
 
-
     if (!empty($cuenta_correo) && !empty($password)) {
-        $select = $cnnPDO->prepare('SELECT * from usuarios WHERE (correo = ? OR numero_cuenta = ?) AND password = ?');
 
+        $select = $cnnPDO->prepare('SELECT * from usuarios WHERE (correo = ? OR numero_cuenta = ?) AND password = ?');
         $select->execute([$cuenta_correo, $cuenta_correo, $password]);
         $count = $select->rowCount();
         $campo = $select->fetch(PDO::FETCH_ASSOC);
@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
             $alertMessage = 'Mensaje: Credenciales Incorrectas.';
         }
     } else {
-        $alertType = 'error';
+        $alertType = 'warning';
         $alertMessage = 'Mensaje: Por favor, rellenar campos vacios.';
     }
 }
@@ -44,6 +44,8 @@ if (isset($_POST['login'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    
 </head>
 
 <body class="body-login">
@@ -80,34 +82,64 @@ if (isset($_POST['login'])) {
                 </div>
                 <div>
                     <button type="submit" class="btn btn-light" style="width: 100%;" name="login">Iniciar Sesion</button>
-
                 </div>
-
-
             </form>
         </div>
     </div>
     <script>
-        const notyf = new Notyf();
-
-        function showNotification(type, message) {
-            if (type === 'success') {
-                notyf.success(message);
-            } else if (type === 'error') {
-                notyf.open({
+        
+        const notyf = new Notyf({
+            duration: 5000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [{
+                    type: 'success',
+                    background: '#e1e3e2', //#618573
+                    icon: {
+                        className: 'material-icons',
+                        tagName: 'i',
+                        text: 'check_circle',
+                    },
+                },
+                {
+                    type: 'error',
+                    background: '#3e3e40', //#856161
+                    icon: {
+                        className: 'material-icons',
+                        tagName: 'i',
+                        text: 'error',
+                    },
+                },
+                {
                     type: 'warning',
+                    background: '#6b7075', //#b8826b
+                    icon: {
+                        className: 'material-icons',
+                        tagName: 'i',
+                        text: 'warning',
+                    },
+                },
+
+            ],
+        });
+
+        // Función para mostrar la notificación
+        function showNotification(type, message) {
+            if (['success', 'error', 'warning'].includes(type)) {
+                notyf.open({
+                    type: type,
                     message: message,
-                    duration: 5000,
-                    background: 'orange',
                 });
             }
         }
-
         // Mostrar notificación si existe un mensaje desde PHP
         <?php if (!empty($alertMessage)) : ?>
             showNotification('<?= $alertType ?>', '<?= $alertMessage ?>');
         <?php endif; ?>
     </script>
+    
 </body>
 
 </html>
