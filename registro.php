@@ -138,6 +138,7 @@ if (isset($_POST['registrar'])) {
     </nav>
     <div class="container position-relative">
         <div class="container mt-3 mb-5 py-4 px-5 registro-form position-absolute top-50 start-50">
+            <div class="fs-3">Crear Cuenta</div>
             <form method="POST" action="">
                 <div class="mb-3">
                     <label for="numero_cuenta" class="form-label ">Número de Cuenta</label>

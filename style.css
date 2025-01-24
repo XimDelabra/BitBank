@@ -85,8 +85,19 @@ body {
     background-size: cover;
 }
 
+.body-login{
+    background-image: url(images/bg-login.jpg);
+    background-size: cover;
+}
+
 .registro-form{
     background-color: #c0c3c59f;
     border: solid 1px black;
     width: 40vw;
 }
+.login-form{
+    background-color: #c0c3c59f;
+    border: solid 1px black;
+    width: 40vw;
+}
+
