@@ -9,6 +9,11 @@
     font-family: Poppins;
     font-weight: 300;
 }
+.navbar-brand:hover {
+    filter: drop-shadow(
+        0px 0px 5px rgb(255, 249, 234, .8)
+    );
+}
 
 .navbar .logo {
     width: 30px;
@@ -24,6 +29,8 @@ body {
     font-family: Poppins;
 }
 
+
+
 /* Styles Index */
 
 .body .portada {
@@ -31,6 +38,7 @@ body {
     background-size: cover;
     height: 83vh;
     display: flex;
+    
 
 }
 
@@ -102,6 +110,24 @@ body {
     border: solid 1px black;
     width: 40vw;
 }
+
+/* Style MiSesion */
+.sesion-body{
+    background: #ffffff;
+}
+.search{
+    height: 5vh;
+    font-size: 15px;
+}
+
+.operaciones{
+    font-size: 15px;
+}
+
+.datos-cuentas{
+    font-size: 8px;
+}
+
 
 /*Style Alertas*/
 .notyf__icon i {
