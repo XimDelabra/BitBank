@@ -1,0 +1,46 @@
+.navbar {
+    background: #3e3e40;
+    background: -webkit-linear-gradient(58deg, #3e3e40 0%, #6b7075 50%, #e1e3e2 100%);
+    background: linear-gradient(58deg, #3e3e40 0%, #6b7075 50%, #e1e3e2 100%);
+}
+
+.navbar-brand {
+    padding: 0;
+    font-family: Poppins;
+    font-weight: 300;
+}
+
+.navbar .logo {
+    width: 30px;
+}
+
+.body {
+    background:
+        linear-gradient(135deg, #0000 18.75%, #e6eaf5 0 31.25%, #0000 0),
+        repeating-linear-gradient(45deg, #e6eaf5 -6.25% 6.25%, #3e3e40 0 18.75%);
+    background-size: 2px 2px;
+
+}
+
+.body .portada {
+    background-image: url(images/portada.png);
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+
+}
+
+.body .portada .eslogan {
+    background-color: #6b70757e;
+    color: white;
+    display: flex;
+    width: 30vw;
+    font-size: 50px;
+    padding: 60px 30px;
+    font-family: Poppins;
+    font-weight: 200;
+}
+
+.card .rounded-end {
+    background-color: #3e3e40;
+}
