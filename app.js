@@ -10,32 +10,32 @@ const notyf = new Notyf({
         y: 'top',
     },
     types: [{
-            type: 'success',
-            background: '#e1e3e2', //#618573
-            icon: {
-                className: 'material-icons',
-                tagName: 'i',
-                text: 'check_circle',
-            },
+        type: 'success',
+        background: '#e1e3e2', //#618573
+        icon: {
+            className: 'material-icons',
+            tagName: 'i',
+            text: 'check_circle',
         },
-        {
-            type: 'error',
-            background: '#3e3e40', //#856161
-            icon: {
-                className: 'material-icons',
-                tagName: 'i',
-                text: 'error',
-            },
+    },
+    {
+        type: 'error',
+        background: '#3e3e40', //#856161
+        icon: {
+            className: 'material-icons',
+            tagName: 'i',
+            text: 'error',
         },
-        {
-            type: 'warning',
-            background: '#6b7075', //#b8826b
-            icon: {
-                className: 'material-icons',
-                tagName: 'i',
-                text: 'warning',
-            },
+    },
+    {
+        type: 'warning',
+        background: '#6b7075', //#b8826b
+        icon: {
+            className: 'material-icons',
+            tagName: 'i',
+            text: 'warning',
         },
+    },
 
     ],
 });
@@ -51,9 +51,9 @@ function showNotification(type, message) {
 }
 
 //Funcion para registro
-$(document).ready(function() {
-    $(document).on("click", "#submit", function() {
-        
+$(document).ready(function () {
+    $(document).on("click", "#submit", function () {
+
         var numero_cuenta = $('#numero_cuenta').val();
         var nombre_cliente = $('#nombre_cliente').val();
         var correo = $('#correo').val();
@@ -68,6 +68,11 @@ $(document).ready(function() {
         } else if (tipo_cuenta == 'Elija una opcion...') {
             showNotification('warning', 'Por favor, rellena el campo "tipo de cuenta".');
         } else {
+            var $button = $(this);
+            $button.prop('disabled', true).html(`
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        `);
             $.ajax({
                 url: "registrar.php",
                 type: "POST",
@@ -77,21 +82,24 @@ $(document).ready(function() {
                     correo: correo,
                     tipo_cuenta: tipo_cuenta
                 },
-                success: function(data) {
+                success: function (data) {
                     var response = data;
-                    
+
                     if (response.status === 'success') {
                         showNotification('success', response.message);
                         $('#numero_cuenta').val('');
                         $('#nombre_cliente').val('');
                         $('#correo').val('');
                         $('#tipo_cuenta').val('');
-                        
+
                     } else {
-                      showNotification('error', response.message);
+                        showNotification('error', response.message);
                     }
-                  }
-                  
+                },
+                complete: function () {
+                    $button.prop('disabled', false).html('Registrar');
+                }
+
             });
         }
     });

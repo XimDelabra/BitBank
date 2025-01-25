@@ -88,7 +88,7 @@ require 'db_conexion.php';
                     </select>
                 </div>
                 <div>
-                    <button id="submit" type="button" class="btn btn-light" style="width: 100%;" name="registrar">Registrar</button>
+                    <button id="submit" type="button" class="btn btn-light" style="width: 100%;" name="registrar">Registrar</button>                    </button>
                 </div>
 
             </form>
