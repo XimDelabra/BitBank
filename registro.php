@@ -38,6 +38,8 @@ require 'db_conexion.php';
             border-radius: 0px;
             box-shadow: 0px 0px 2px 1px black;
         }
+
+       
     </style>
 
 </head>
@@ -54,8 +56,8 @@ require 'db_conexion.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link text-light" href="registro.php">Registrar</a>
-                    <a class="nav-link text-light" href="login.php">Inicia Sesion</a>
+                    <a class="nav-link text-light nav-btns" href="registro.php">Registrar</a>
+                    <a class="nav-link text-light nav-btns" href="login.php">Inicia Sesion</a>
 
                 </div>
             </div>
@@ -65,9 +67,12 @@ require 'db_conexion.php';
         <div class="container mt-3 mb-5 py-4 px-5 registro-form position-absolute top-50 start-50">
             <div class="fs-3">Crear Cuenta</div>
             <form action="">
-                <div class="mb-3">
+                <div class="mb-3 inpt-registro">
                     <label for="numero_cuenta" class="form-label ">Número de Cuenta</label>
-                    <input type="text" class="form-control input-number" id="numero_cuenta" name="numero_cuenta">
+                    <input type="text" class="form-control input-number" id="numero_cuenta" maxlength="19" name="numero_cuenta" required>
+
+                    <p id="error-message" class="error-message">El número debe contener exactamente 16 dígitos.</p>
+
                 </div>
                 <div class="mb-3">
                     <label for="nombre_cliente" class="form-label">Nombre del cliente</label>
@@ -88,13 +93,32 @@ require 'db_conexion.php';
                     </select>
                 </div>
                 <div>
-                    <button id="submit" type="button" class="btn btn-light" style="width: 100%;" name="registrar">Registrar</button>                    </button>
+                    <button id="submit" type="button" class="btn btn-light" style="width: 100%;" name="registrar">Registrar</button> </button>
                 </div>
 
             </form>
         </div>
     </div>
     <script src="app.js"></script>
+    <script>
+        const numberInput = document.getElementById('numero_cuenta');
+        const errorMessage = document.getElementById('error-message');
+
+        numberInput.addEventListener('input', () => {
+            const value = numberInput.value;
+
+            // Validar si contiene 16 dígitos
+            if (value.length !== 19) {
+                numberInput.classList.add('invalid');
+                numberInput.classList.remove('valid');
+                errorMessage.classList.add('visible');
+            } else {
+                numberInput.classList.remove('invalid');
+                numberInput.classList.add('valid');
+                errorMessage.classList.remove('visible');
+            }
+        });
+    </script>
 </body>
 
 </html>

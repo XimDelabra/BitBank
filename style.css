@@ -111,6 +111,29 @@ body {
     width: 40vw;
 }
 
+input.invalid {
+    border-color: red !important;
+}
+input.invalid:focus{
+    border-color: red !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25) !important;
+}
+
+input.valid:focus{
+    border-color: green !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 0, 0.25) !important;
+}
+
+
+.error-message {
+    font-size: 0.9rem;
+    display: none;
+}
+
+.error-message.visible {
+    display: block;
+}
+
 /* Style MiSesion */
 .sesion-body{
     background: #ffffff;

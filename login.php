@@ -41,8 +41,8 @@ require 'db_conexion.php';
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link text-light" href="registro.php">Registrar</a>
-                    <a class="nav-link text-light" href="login.php">Inicia Sesion</a>
+                    <a class="nav-link text-light nav-btns" href="registro.php">Registrar</a>
+                    <a class="nav-link text-light nav-btns" href="login.php">Inicia Sesion</a>
 
                 </div>
             </div>

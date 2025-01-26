@@ -11,7 +11,7 @@ const notyf = new Notyf({
     },
     types: [{
         type: 'success',
-        background: '#e1e3e2', //#618573
+        background: '#e1e3e2',
         icon: {
             className: 'material-icons',
             tagName: 'i',
@@ -20,7 +20,7 @@ const notyf = new Notyf({
     },
     {
         type: 'error',
-        background: '#3e3e40', //#856161
+        background: '#3e3e40', 
         icon: {
             className: 'material-icons',
             tagName: 'i',
@@ -29,7 +29,7 @@ const notyf = new Notyf({
     },
     {
         type: 'warning',
-        background: '#6b7075', //#b8826b
+        background: '#6b7075', 
         icon: {
             className: 'material-icons',
             tagName: 'i',
@@ -59,9 +59,11 @@ $(document).ready(function () {
         var correo = $('#correo').val();
         var tipo_cuenta = $('#tipo_cuenta').val();
 
-        if (!numero_cuenta) {
+        if (numero_cuenta.length !== 19 ) {
+            showNotification('warning', 'El numero de cuenta esta incompleto.');
+        } else if(!numero_cuenta) {
             showNotification('warning', 'Por favor, rellena el campo "numero de cuenta".');
-        } else if (!nombre_cliente) {
+        }  else if (!nombre_cliente) {
             showNotification('warning', 'Por favor, rellena el campo "nombre de cliente".');
         } else if (!correo) {
             showNotification('warning', 'Por favor, rellena el campo "correo".');
