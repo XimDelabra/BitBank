@@ -1,6 +1,16 @@
 <?php
 require 'db_conexion.php';
 session_start();
+
+if(isset ($_POST["desactivar"])){
+    $actived = "no";
+
+        if (!empty($actived)) {
+            $update = $cnnPDO->prepare("UPDATE usuarios SET estado = ? WHERE correo=?");
+            $update->execute([$actived, $_SESSION["correo"]]);
+            require_once 'msj_desactivar.php';
+        }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +50,9 @@ session_start();
                     <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-user"></i> Mi Perfil</a>
                     <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-gear"></i> Configuracion</a>
                     <a class="nav-link text-light nav-btns mx-1 text-dark" href="logout.php"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a>
-
+                    <form method="post">
+                        <button class="btn btn-outline-dark" name="desactivar"><i class="fa-solid fa-user-slash"></i> Desactivar Cuenta</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -52,7 +64,7 @@ session_start();
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-wallet"></i> Cuentas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-credit-card"></i> Tarjetas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-coins"></i> Inversiones</a>
-                <a href="transferir.php" class="nav-link mx-2"><i class="fa-solid fa-money-bill-transfer"></i></i>Transferir</a>
+                <a href="transferir.php" class="nav-link mx-2"><i class="fa-solid fa-money-bill-transfer"></i></i> Transferir</a>
             </div>
             <div class="col-5 d-flex justify-content-start">
                 <input class="form-control me-2 search" type="search" placeholder="Que operacion buscas?" aria-label="Search">
