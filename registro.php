@@ -72,7 +72,6 @@ require 'db_conexion.php';
                     <input type="text" class="form-control input-number" id="numero_cuenta" maxlength="19" name="numero_cuenta" required>
 
                     <p id="error-message" class="error-message">El número debe contener exactamente 16 dígitos.</p>
-
                 </div>
                 <div class="mb-3">
                     <label for="nombre_cliente" class="form-label">Nombre del cliente</label>
