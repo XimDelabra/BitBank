@@ -52,7 +52,7 @@ session_start();
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-wallet"></i> Cuentas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-credit-card"></i> Tarjetas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-coins"></i> Inversiones</a>
-                <a href="#" class="nav-link mx-2"><i class="fa-solid fa-file-invoice-dollar"></i> Creditos</a>
+                <a href="transferir.php" class="nav-link mx-2"><i class="fa-solid fa-money-bill-transfer"></i></i>Transferir</a>
             </div>
             <div class="col-5 d-flex justify-content-start">
                 <input class="form-control me-2 search" type="search" placeholder="Que operacion buscas?" aria-label="Search">
@@ -86,7 +86,7 @@ session_start();
                         </div>
                     </div>
                     <p>10</p>
-                    <p>30,484.10 MXN </p>
+                    <p> $ <?php echo ($_SESSION['saldo']); ?></p>
                 </div>
                 <div class="container-fluid d-flex pt-1 justify-content-between border-bottom border-secondary-subtle ">
                     <div class="d-flex">
