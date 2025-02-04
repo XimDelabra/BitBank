@@ -29,8 +29,8 @@ if (isset($_POST["numero_cuenta"])){
         $bytes = random_bytes(5);
         $password = substr(bin2hex($bytes), 0, 5);
 
-        $sql = $cnnPDO->prepare("INSERT INTO usuarios (numero_cuenta, nombre, correo, tipo_cuenta, password) VALUES (?, ?, ?, ?, ?)");
-        $sql->execute([$numero_cuenta, $nombre_cliente, $correo, $tipo_cuenta, $password]);
+        $sql = $cnnPDO->prepare("INSERT INTO usuarios (numero_cuenta, nombre, correo, tipo_cuenta, password, estado, saldo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $sql->execute([$numero_cuenta, $nombre_cliente, $correo, $tipo_cuenta, $password, 1, 0]);
 
         $mensaje = "<html>
 

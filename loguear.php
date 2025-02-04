@@ -15,16 +15,20 @@ if (isset($_POST["cuenta_correo"])){
         $campo = $select->fetch(PDO::FETCH_ASSOC);
 
         if ($count) {
-            $_SESSION['numero_cuenta'] = $campo['numero_cuenta'];
-            $_SESSION['correo'] = $campo['correo'];
-            $_SESSION['nombre'] = $campo['nombre'];
-            $_SESSION['tipo_cuenta'] = $campo['tipo_cuenta'];
-            $_SESSION['password'] = $campo['password'];
-            $_SESSION['saldo'] = $campo['saldo'];
-            $_SESSION['estado'] = $campo['estado'];
+            if($campo['estado']== 0) {
+                    echo json_encode(['status' => 'error', 'message' => 'Cuenta desactivada']);
+            } elseif($campo['estado']== 1){
+                $_SESSION['numero_cuenta'] = $campo['numero_cuenta'];
+                $_SESSION['correo'] = $campo['correo'];
+                $_SESSION['nombre'] = $campo['nombre'];
+                $_SESSION['tipo_cuenta'] = $campo['tipo_cuenta'];
+                $_SESSION['password'] = $campo['password'];
+                $_SESSION['saldo'] = $campo['saldo'];
+                $_SESSION['estado'] = $campo['estado'];
 
-            echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso.']);
-            exit;
+                echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso.']);
+                exit;
+            }
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Correo o Contrasena incorrectos']);
             
