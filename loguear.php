@@ -20,6 +20,8 @@ if (isset($_POST["cuenta_correo"])){
             $_SESSION['nombre'] = $campo['nombre'];
             $_SESSION['tipo_cuenta'] = $campo['tipo_cuenta'];
             $_SESSION['password'] = $campo['password'];
+            $_SESSION['saldo'] = $campo['saldo'];
+            $_SESSION['estado'] = $campo['estado'];
 
             echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso.']);
             exit;
