@@ -25,10 +25,9 @@ body {
     background:
         linear-gradient(135deg, #0000 18.75%, #e6eaf5 0 31.25%, #0000 0),
         repeating-linear-gradient(45deg, #e6eaf5 -6.25% 6.25%, #3e3e40 0 18.75%);
-    background-size: 2px 2px;
+    background-size: 3px 3px;
     font-family: Poppins;
 }
-
 
 
 /* Styles Index */
