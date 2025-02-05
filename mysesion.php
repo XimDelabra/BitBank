@@ -34,7 +34,7 @@ if (isset($_POST["desactivar"])) {
 </head>
 
 <body class="sesion-body">
-<nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="mysesion.php">
                 <img class="logo" src="images/logo.png" alt="">
@@ -58,7 +58,7 @@ if (isset($_POST["desactivar"])) {
                                     <button class="btn btn-outline-dark btn-sm w-100" name="desactivar"><i class="fa-solid fa-user-slash"></i> Desact. Cuenta</button>
                                 </form>
                             </li>
-                            <li><a class="btn btn-dark w-100 btn-sm" href="logout.php" > <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a></li>
+                            <li><a class="btn btn-dark w-100 btn-sm" href="logout.php"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ if (isset($_POST["desactivar"])) {
     <div class="container-fluid bg-light p-2">
         <div class="row">
             <div class="col-md-7 col-12 d-flex justify-content-start operaciones">
-                <a href="#" class="nav-link mx-2"><i class="fa-solid fa-dollar-sign"></i> Mis Saldos</a>
+                <a href="#" class="nav-link mx-2"><i class="fa-solid fa-dollar-sign"></i> Depositar</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-wallet"></i> Cuentas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-credit-card"></i> Tarjetas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-coins"></i> Inversiones</a>
@@ -117,8 +117,49 @@ if (isset($_POST["desactivar"])) {
                     <p class="mb-0">Tarjetas de Credito</p>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
+
+                <!-- LISTA DE TRANFERENCIAS -->
+
+                <div class="accordion accordion-flush p-0" id="accordionFlushExample">
+                    <div class="accordion-item p-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light py-1 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Transferencias
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="container-fluid d-flex justify-content-between">
+                                    <p class="m-0">Concepto</p> 
+                                    <p class="m-0">Destino</p> 
+                                    <p class="m-0">Fecha</p> 
+                                </div>
+
+                                <?php
+                                $slctTransfer = $cnnPDO->prepare('SELECT * FROM transferencias where cuenta_remitente =?');
+                                $slctTransfer->execute(([$_SESSION['nombre']]));
+                                $count =$slctTransfer->rowCount();
+                                $fetch = $slctTransfer->fetch();
+
+                                if ($count >0){
+                                    foreach ($fetch as $data) {
+                                        echo  '<div class="container-fluid d-flex justify-content-between">';
+                                         echo'           <p class="m-0">Tranferencia a</p>'; 
+                                        echo            '<p class="m-0">'.$data["cuenta_destino"].'</p>';
+                                        echo            '<p class="m-0">'.$Data["fecha"].'</p>'; 
+                                        echo        '</div>';
+                                    }
+                                    
+                                }
+
+                                ?>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 col-12">
+            <div class="col-md-4 col-12 mb-5">
                 <p class="fw-medium">Mis favoritos</p>
                 <div class="container text-center">
                     <div class="row row-cols-4">
