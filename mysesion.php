@@ -136,7 +136,7 @@ if (isset($_POST["desactivar"])) {
                                 </div>
 
                                 <?php
-                                $slctTransfer = $cnnPDO->prepare('SELECT * FROM transferencias where cuenta_remitente =?');
+                                $slctTransfer = $cnnPDO->prepare('SELECT * FROM tranferecias where cuenta_remitente =?');
                                 $slctTransfer->execute(([$_SESSION['nombre']]));
                                 $count =$slctTransfer->rowCount();
                                 $fetch = $slctTransfer->fetch();
