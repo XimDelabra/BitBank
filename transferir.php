@@ -86,10 +86,12 @@ session_start();
     <div class="container-md container-transferir rounded-5 p-md-5 mt-4">
         <form action="">
             <h1 class="text-center mx-2">Transferencia</h1>
-            <label for="numero_tranferir">Numero de cuenta a transferir:</label>
-            <input type="text" class="form-control numero_cuenta" id="numero_transferir" name="numero_transferir">
-            <p id="nombre_tranferir">Nombre</p> <!--para mostrar el nombre de la persona-->
+            <label for="numero_tranferir" >Numero de cuenta a transferir:</label>
+            <input type="text" class="form-control numero_cuenta" id="numero_transferir" name="numero_transferir" maxlength="19" required>
 
+            <p id="error-message" class="error-message">El número debe contener exactamente 16 dígitos.</p>
+            <p id="nombre_tranferir">Nombre</p> <!--para mostrar el nombre de la persona-->
+            
             <label for="saldo_transferir">Saldo a transferir:</label>
             <input type="number" class="form-control" id="saldo_transferir" name="saldo_transferir">
 
@@ -101,6 +103,62 @@ session_start();
     </div>
 
     <script src="transferencia.js"></script>
+    <script>
+        const numberInput = document.getElementById('numero_transferir');
+        const message = document.getElementById('error-message');
+        const nombreTransferir = document.getElementById('nombre_tranferir');
+
+        numberInput.addEventListener('input', () => {
+            const value = numberInput.value;
+
+            // Validar si contiene 16 dígitos
+            if (value.length !== 19) {
+                numberInput.classList.add('invalid');
+                numberInput.classList.remove('valid');
+                message.classList.add('visible');
+            } else {
+                numberInput.classList.remove('invalid');
+                numberInput.classList.add('valid');
+                message.classList.remove('visible');
+
+                //Verificamos mediante php que el numero de cuenta exista
+                verificarNumeroCuenta(value);
+
+
+            }
+        });
+
+        function verificarNumeroCuenta(numero) {
+            var numeroTransferir = numero
+            $.ajax({
+                url: "verificar_cuenta.php",
+                type: "POST",
+                data: {
+                    numeroTransferir: numeroTransferir
+                },
+                success: function(data) {
+                    var response = data;
+                    
+                    if (response.status === 'success') {
+                        console.log(response.status)
+                        numberInput.classList.remove('invalid');
+                        numberInput.classList.add('valid');
+                        message.classList.remove('visible');
+
+                        nombreTransferir.textContent = response.nombre;
+
+                    } else {
+                        console.log(response.status)
+                        numberInput.classList.add('invalid');
+                        numberInput.classList.remove('valid');
+                        message.classList.remove('visible');
+                        nombreTransferir.textContent = "Cuenta no encontrada";
+                    }
+                },
+
+            });
+        };
+    </script>
 </body>
 
 </html>
