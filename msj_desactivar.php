@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 $email = $_SESSION['correo'];
 $mensaje = "
 <html>
@@ -83,3 +83,5 @@ $destinatario = $email;
 $asunto = "Desactivacion de cuenta";
 
 mail($destinatario, $asunto, $mensaje, $headers);
+
+header("location: logout.php");

@@ -11,7 +11,7 @@ const notyf = new Notyf({
     },
     types: [{
         type: 'success',
-        background: '#e1e3e2',
+        background: '#9ed7ba',
         icon: {
             className: 'material-icons',
             tagName: 'i',
@@ -67,7 +67,14 @@ $(document).ready(function () {
             showNotification('warning', 'Por favor, rellena el campo "saldo a transferir".');
         } else if (saldo < saldo_transferir) {
             showNotification('warning', 'Saldo insuficiente.');
+        } else if (saldo_transferir<=0) {
+            showNotification('warning', 'Cantidad no permitida.');
         } else  {
+            var $button = $(this);
+            $button.prop('disabled', true).html(`
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Cargando...
+        `);
             $.ajax({
                 url: "transferir_action.php",
                 type: "POST",
@@ -79,8 +86,10 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     var response = data;
+                    console.log(response.status)
 
                     if (response.status === 'success') {
+                        console.log(response.status)
                         showNotification('success', response.message);
                         $('#numero_transferir').val('');
                         $('#saldo_transferir').val('');
@@ -88,9 +97,14 @@ $(document).ready(function () {
                         $('#saldo').val('');
 
                     } else {
+                        console.log(response.status)
                         showNotification('error', response.message);
                     }
+                },
+                complete: function () {
+                    $button.prop('disabled', false).html('Registrar');
                 }
+
             });
         }
     });

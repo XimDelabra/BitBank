@@ -10,11 +10,10 @@ if (isset($_POST["numero_transferir"])) {
         $saldo_transferir = $_POST['saldo_transferir'];
         $numero_cuenta = $_POST['numero_cuenta'];
 
-
         // Verifica que el numero a transferir exista
         $select = $cnnPDO->prepare("SELECT * FROM usuarios WHERE numero_cuenta = ?");
         $select->execute([$numero_transferir]);
-        $datosDestino = $select->fetchAll();
+        $datosDestino = $select->fetch(PDO::FETCH_ASSOC); 
         $correoDestinatario = $datosDestino['correo'];
         if ($select->rowCount() > 0) {
             
@@ -186,6 +185,7 @@ if (isset($_POST["numero_transferir"])) {
             
 
             echo json_encode(['status' => 'success', 'message' => 'Trasferecia exitosa. Se ha enviado un correo con los detalles.']);
+            $_SESSION['saldo'] = $_SESSION['saldo']- $saldo_transferir;
         } else {
             echo json_encode(['status' => 'error', 'message' => 'El numero de cuenta a transferir no existe.']);
         }

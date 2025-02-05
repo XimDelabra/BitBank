@@ -11,7 +11,7 @@ const notyf = new Notyf({
     },
     types: [{
         type: 'success',
-        background: '#e1e3e2',
+        background: '#9ed7ba',
         icon: {
             className: 'material-icons',
             tagName: 'i',
