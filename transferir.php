@@ -8,7 +8,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Sesion</title>
+    <title>Transferir | BitBank</title>
     <!-- CDN Jquery-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- CDN Boostrap -->
@@ -60,7 +60,7 @@ session_start();
                                     <button class="btn btn-outline-dark btn-sm w-100" name="desactivar"><i class="fa-solid fa-user-slash"></i> Desact. Cuenta</button>
                                 </form>
                             </li>
-                            <li><a class="btn btn-dark w-100 btn-sm" href="logout.php" > <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a></li>
+                            <li><a class="btn btn-dark w-100 btn-sm" href="logout.php"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a></li>
                         </ul>
                     </div>
                 </div>
@@ -83,23 +83,31 @@ session_start();
         </div>
     </div>
 
-    <div class="container-md container-transferir rounded-5 p-md-5 mt-4">
-        <form action="">
-            <h1 class="text-center mx-2">Transferencia</h1>
-            <label for="numero_tranferir" >Numero de cuenta a transferir:</label>
-            <input type="text" class="form-control numero_cuenta" id="numero_transferir" name="numero_transferir" maxlength="19" required>
 
-            <p id="error-message" class="error-message">El número debe contener exactamente 16 dígitos.</p>
-            <p id="nombre_tranferir">Nombre</p> <!--para mostrar el nombre de la persona-->
-            
-            <label for="saldo_transferir">Saldo a transferir:</label>
-            <input type="number" class="form-control" id="saldo_transferir" name="saldo_transferir">
+    <div class="container ">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-11 container-transferir rounded-3 p-md-5 p-4 mt-4">
+                <form>
+                    <h1 class="text-center mx-2">Transferencia</h1>
+                    <label for="numero_tranferir">Numero de cuenta a transferir:</label>
+                    <input type="text" class="form-control numero_cuenta" id="numero_transferir" name="numero_transferir" maxlength="19" required>
 
-            <input type="hidden" name="numero_cuenta" id="numero_cuenta" value="<?php echo ($_SESSION['numero_cuenta']); ?>">
-            <input type="hidden" name="saldo" id="saldo" value="<?php echo ($_SESSION['saldo']); ?>">
+                    <p id="error-message" class="error-message">El número debe contener exactamente 16 dígitos.</p>
+                    <label for="nombre_tranferir" class="mt-3">Propietario de la cuenta:</label>
+                    <p id="nombre_tranferir" class="fw-bold mt-1"></p> <!--para mostrar el nombre de la persona-->
 
-            <button type="button" class="btn btn-dark w-100 mt-4" id="transferir">Aceptar Transferencia</button>
-        </form>
+                    <label for="saldo_transferir">Saldo a transferir:</label>
+                    <input type="number" class="form-control" id="saldo_transferir" name="saldo_transferir">
+
+                    <input type="hidden" name="numero_cuenta" id="numero_cuenta" value="<?php echo ($_SESSION['numero_cuenta']); ?>">
+                    <input type="hidden" name="saldo" id="saldo" value="<?php echo ($_SESSION['saldo']); ?>">
+
+                    <button type="button" class="btn btn-dark w-100 mt-4" id="transferir">Realizar Transferencia</button>
+                </form>
+
+            </div>
+        </div>
+
     </div>
 
     <script src="transferencia.js"></script>
@@ -138,7 +146,7 @@ session_start();
                 },
                 success: function(data) {
                     var response = data;
-                    
+
                     if (response.status === 'success') {
                         console.log(response.status)
                         numberInput.classList.remove('invalid');

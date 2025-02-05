@@ -9,6 +9,7 @@ require 'db_conexion.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BitBank | Iniciar Sesion </title>
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- CDN Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -48,27 +49,26 @@ require 'db_conexion.php';
             </div>
         </div>
     </nav>
-    <div class="container position-relative">
-        <div class="container login-form mt-3 mb-5 py-4 px-5 position-absolute top-50 start-0">
-            <div class="fs-3">Inicio de Sesion</div>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="container login-form mt-3 mb-5 py-4 px-md-5 px-3 w-75 w-xs-100 shadow rounded">
+            <div class="fs-3 text-center my-3">Inicio de Sesión</div>
             <form action="">
-                <div class="mb-3">
-                    <label for="cuenta_correo" class="form-label ">Número de Cuenta / Correo</label>
+                <div class="my-4">
+                    <label for="cuenta_correo" class="form-label">Número de Cuenta / Correo</label>
                     <input type="text" class="form-control" id="cuenta_correo" name="cuenta_correo">
                 </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contrasena</label>
+                <div class="my-4">
+                    <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
-                <div>
-                    <button id="login" type="button" class="btn btn-light" style="width: 100%;" name="login">Iniciar Sesion</button>
+                <div class="mt-5 mb-4">
+                    <button id="login" type="button" class="btn btn-light w-100" name="login">Iniciar Sesión</button>
                 </div>
             </form>
         </div>
     </div>
-    <script>
 
+    <script>
         const notyf = new Notyf({
             duration: 5000,
             position: {
@@ -120,7 +120,7 @@ require 'db_conexion.php';
         $(document).ready(function() {
             $(document).on("click", "#login", function() {
 
-                
+
                 var cuenta_correo = $('#cuenta_correo').val();
                 var password = $('#password').val();
 
@@ -134,7 +134,7 @@ require 'db_conexion.php';
                         type: "POST",
                         data: {
                             cuenta_correo: cuenta_correo,
-                            password: password, 
+                            password: password,
                         },
                         success: function(data) {
                             var response = data;
