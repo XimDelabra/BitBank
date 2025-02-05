@@ -46,37 +46,47 @@ session_start();
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-
-                    <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-message"></i> Mensajes</a>
-                    <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-user"></i> Mi Perfil</a>
-                    <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-gear"></i> Configuracion</a>
-                    <a class="nav-link text-light nav-btns mx-1 text-dark" href="logout.php"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a>
-
+                <div class="navbar-nav ms-auto me-5">
+                    <a class="nav-link text-light nav-btns" href="#"> <i class="fa-solid fa-message"></i> Mensajes</a>
+                    <a class="nav-link text-light nav-btns" href="#"> <i class="fa-solid fa-user"></i> Mi Perfil</a>
+                    <div class="dropdown-center">
+                        <button class="nav-link text-light nav-btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-gear"></i>
+                            Opciones
+                        </button>
+                        <ul class="dropdown-menu p-1">
+                            <li class="mb-2">
+                                <form method="post">
+                                    <button class="btn btn-outline-dark btn-sm w-100" name="desactivar"><i class="fa-solid fa-user-slash"></i> Desact. Cuenta</button>
+                                </form>
+                            </li>
+                            <li><a class="btn btn-dark w-100 btn-sm" href="logout.php" > <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
     <div class="container-fluid bg-light p-2">
         <div class="row">
-            <div class="col-7 d-flex justify-content-start operaciones">
+            <div class="col-md-7 col-12 d-flex justify-content-start operaciones">
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-dollar-sign"></i> Mis Saldos</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-wallet"></i> Cuentas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-credit-card"></i> Tarjetas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-coins"></i> Inversiones</a>
-                <a href="tranferir.php" class="nav-link mx-2"><i class="fa-solid fa-money-bill-transfer"></i></i>Transferir</a>
+                <a href="transferir.php" class="nav-link mx-2"><i class="fa-solid fa-money-bill-transfer"></i></i> Transferir</a>
             </div>
-            <div class="col-5 d-flex justify-content-start">
+            <div class="col-md-5 col-12 my-md-0 my-2 d-flex justify-content-start">
                 <input class="form-control me-2 search" type="search" placeholder="Que operacion buscas?" aria-label="Search">
                 <button class="btn p-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </div>
-    
-    <div class="container container-transferir rounded-5 p-md-5 mt-4">
+
+    <div class="container-md container-transferir rounded-5 p-md-5 mt-4">
         <form action="">
             <h1 class="text-center mx-2">Transferencia</h1>
-            <label for="numero_tranferir" >Numero de cuenta a transferir:</label>
+            <label for="numero_tranferir">Numero de cuenta a transferir:</label>
             <input type="text" class="form-control numero_cuenta" id="numero_transferir" name="numero_transferir">
             <p id="nombre_tranferir">Nombre</p> <!--para mostrar el nombre de la persona-->
 
@@ -89,7 +99,7 @@ session_start();
             <button type="button" class="btn btn-dark w-100 mt-4" id="transferir">Aceptar Transferencia</button>
         </form>
     </div>
- 
+
     <script src="transferencia.js"></script>
 </body>
 

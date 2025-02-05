@@ -34,7 +34,7 @@ if (isset($_POST["desactivar"])) {
 </head>
 
 <body class="sesion-body">
-    <nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand text-light" href="mysesion.php">
                 <img class="logo" src="images/logo.png" alt="">
@@ -44,29 +44,37 @@ if (isset($_POST["desactivar"])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-
-                    <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-message"></i> Mensajes</a>
-                    <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-user"></i> Mi Perfil</a>
-                    <a class="nav-link text-light nav-btns mx-1" href="#"> <i class="fa-solid fa-gear"></i> Configuracion</a>
-                    <a class="nav-link text-light nav-btns mx-1 text-dark" href="logout.php"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a>
-                    <form method="post">
-                        <button class="btn btn-outline-dark" name="desactivar"><i class="fa-solid fa-user-slash"></i> Desactivar Cuenta</button>
-                    </form>
+                <div class="navbar-nav ms-auto me-5">
+                    <a class="nav-link text-light nav-btns" href="#"> <i class="fa-solid fa-message"></i> Mensajes</a>
+                    <a class="nav-link text-light nav-btns" href="#"> <i class="fa-solid fa-user"></i> Mi Perfil</a>
+                    <div class="dropdown-center">
+                        <button class="nav-link text-light nav-btns dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-gear"></i>
+                            Opciones
+                        </button>
+                        <ul class="dropdown-menu p-1">
+                            <li class="mb-2">
+                                <form method="post">
+                                    <button class="btn btn-outline-dark btn-sm w-100" name="desactivar"><i class="fa-solid fa-user-slash"></i> Desact. Cuenta</button>
+                                </form>
+                            </li>
+                            <li><a class="btn btn-dark w-100 btn-sm" href="logout.php" > <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesion</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
     <div class="container-fluid bg-light p-2">
         <div class="row">
-            <div class="col-7 d-flex justify-content-start operaciones">
+            <div class="col-md-7 col-12 d-flex justify-content-start operaciones">
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-dollar-sign"></i> Mis Saldos</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-wallet"></i> Cuentas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-credit-card"></i> Tarjetas</a>
                 <a href="#" class="nav-link mx-2"><i class="fa-solid fa-coins"></i> Inversiones</a>
                 <a href="transferir.php" class="nav-link mx-2"><i class="fa-solid fa-money-bill-transfer"></i></i> Transferir</a>
             </div>
-            <div class="col-5 d-flex justify-content-start">
+            <div class="col-md-5 col-12 my-md-0 my-2 d-flex justify-content-start">
                 <input class="form-control me-2 search" type="search" placeholder="Que operacion buscas?" aria-label="Search">
                 <button class="btn p-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
@@ -75,13 +83,13 @@ if (isset($_POST["desactivar"])) {
     <p class="fs-4 mb-0 ms-3 text-secondary">Es un gusto tenerte de vuelta <strong><?php echo ($_SESSION['nombre']); ?></strong>!</p>
     <p class="fs-6 mb-4 ms-3 text-secondary"><?php echo ($_SESSION['correo']); ?> </p>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-8">
+    <div class="container my-md-0 my-3">
+        <div class="row g-3">
+            <div class="col-md-8 col-12">
                 <p class="fw-medium">Mis cuentas</p>
                 <div class="container-fluid bg-secondary d-flex justify-content-between">
                     <p class="text-light mb-0">Cuentas en pesos</p>
-                    <p class="text-light mb-0">60970.00MXN <i class="fa-solid fa-chevron-up"></i></p>
+                    <p class="text-light mb-0">$ <?php echo ($_SESSION['saldo']); ?> MXN <i class="fa-solid fa-chevron-up"></i></p>
                 </div>
                 <div class="container-fluid d-flex justify-content-between border-bottom border-secondary-subtle">
                     <p class="text-secondary mb-0">Numero de cuenta</p>
@@ -98,7 +106,7 @@ if (isset($_POST["desactivar"])) {
                         </div>
                     </div>
                     <p class="my-0">10</p>
-                    <p class="my-0"> $ <?php echo ($_SESSION['saldo']); ?></p>
+                    <p class="my-0"> $ <?php echo ($_SESSION['saldo']); ?> MXN</p>
                 </div>
 
                 <div class="container-fluid bg-secondary d-flex justify-content-between border-bottom border-secondary-subtle text-light">
@@ -110,7 +118,7 @@ if (isset($_POST["desactivar"])) {
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-12">
                 <p class="fw-medium">Mis favoritos</p>
                 <div class="container text-center">
                     <div class="row row-cols-4">
