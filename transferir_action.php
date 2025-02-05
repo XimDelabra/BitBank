@@ -182,10 +182,12 @@ if (isset($_POST["numero_transferir"])) {
 
         (mail($destinatario, $asunto, $mensajeRemitente, $headers));
 
-            
-
             echo json_encode(['status' => 'success', 'message' => 'Trasferecia exitosa. Se ha enviado un correo con los detalles.']);
             $_SESSION['saldo'] = $_SESSION['saldo']- $saldo_transferir;
+
+            $insertt = $cnnPDO->prepare('INSERT INTO transferencias(cuenta_destino, cuenta_remitente, monto) VALUES (?,?,?)');
+            $insertt->execute([$numero_transferir, $numero_cuenta, $saldo_transferir]);
+
         } else {
             echo json_encode(['status' => 'error', 'message' => 'El numero de cuenta a transferir no existe.']);
         }

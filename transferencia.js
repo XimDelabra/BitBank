@@ -69,6 +69,8 @@ $(document).ready(function () {
             showNotification('warning', 'Saldo insuficiente.');
         } else if (saldo_transferir<=0) {
             showNotification('warning', 'Cantidad no permitida.');
+        } else if (numero_transferir==numero_cuenta) {
+            showNotification('warning', 'Error, no te puedes transferir a ti mismo.');
         } else  {
             var $button = $(this);
             $button.prop('disabled', true).html(`
@@ -109,3 +111,63 @@ $(document).ready(function () {
         }
     });
 });
+
+
+const numberInput = document.getElementById('numero_transferir');
+        const message = document.getElementById('error-message');
+        const nombreTransferir = document.getElementById('nombre_tranferir');
+
+        numberInput.addEventListener('input', () => {
+            const value = numberInput.value;
+
+            // Validar si contiene 16 dígitos
+            if (value.length !== 19) {
+                numberInput.classList.add('invalid');
+                numberInput.classList.remove('valid');
+                message.classList.add('visible');
+            } else {
+                numberInput.classList.remove('invalid');
+                numberInput.classList.add('valid');
+                message.classList.remove('visible');
+
+                //Verificamos mediante php que el numero de cuenta exista
+                verificarNumeroCuenta(value);
+            }
+        });
+
+        function verificarNumeroCuenta(numero) {
+            var numeroTransferir = numero
+            $.ajax({
+                url: "verificar_cuenta.php",
+                type: "POST",
+                data: {
+                    numeroTransferir: numeroTransferir
+                },
+                success: function(data) {
+                    var response = data;
+
+                    if (response.status === 'success') {
+                        console.log(response.status)
+                        numberInput.classList.remove('invalid');
+                        numberInput.classList.add('valid');
+                        message.classList.remove('visible');
+
+                        nombreTransferir.textContent = response.nombre;
+
+                    } else if(response.message == 'mismo') {
+                        console.log(response.status)
+                        numberInput.classList.add('invalid');
+                        numberInput.classList.remove('valid');
+                        message.classList.remove('visible');
+                        nombreTransferir.textContent = "No puedes transferirte a ti mismo";
+                    } else {
+                        console.log(response.status)
+                        numberInput.classList.add('invalid');
+                        numberInput.classList.remove('valid');
+                        message.classList.remove('visible');
+                        nombreTransferir.textContent = "Cuenta no encontrada";
+                    }
+                },
+
+            });
+        };
