@@ -59,15 +59,7 @@ if (isset($_POST["numero_cuenta"])){
             font-weight: 200;
             margin: 0;
         }
-        .img-cont{
-            display: flex;
-            justify-content: end;
-        }
-        .img{
-            width: 60px;
-            
-        
-        }
+       
         .msg {
             margin: 0;
             font-size: 20px;
@@ -82,18 +74,13 @@ if (isset($_POST["numero_cuenta"])){
             font-weight: 200;
             margin: 0;
         }
-        .link{
-            text-align: center;
-        }
+      
     </style>
 
 </head>
 
 <body>
     <table class='table'>
-        <tr class='img-cont'>
-            <td><img class='img' src='images/logo.png'></td>
-        </tr>
         <tr>
             <td>
                 <div class='mail'>
@@ -116,7 +103,6 @@ if (isset($_POST["numero_cuenta"])){
             <td>
                 <p class='msg'>Podras acceder a tu cuenta con la contrasena:</p>
                 <p class='password'>$password</p>
-                <p class='link'>En la siguiente liga <a href='login.php'>Iniciar Sesion</a></p>
             </td>
         </tr>
         </tr>

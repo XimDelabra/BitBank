@@ -72,13 +72,10 @@ session_start();
             </div>
         </div>
     </div>
-    <p class="fs-4 mb-0 ms-3 text-secondary">Es un gusto tenerte de vuelta <strong><?php echo ($_SESSION['nombre']); ?></strong>!</p>
-    <p class="fs-6 mb-4 ms-3 text-secondary"><?php echo ($_SESSION['correo']); ?> </p>
-
-
-    <div class="container container-transferir">
+    
+    <div class="container container-transferir rounded-5 p-md-5 mt-4">
         <form action="">
-            <h1>Transferencia</h1>
+            <h1 class="text-center mx-2">Transferencia</h1>
             <label for="numero_tranferir" >Numero de cuenta a transferir:</label>
             <input type="text" class="form-control numero_cuenta" id="numero_transferir" name="numero_transferir">
             <p id="nombre_tranferir">Nombre</p> <!--para mostrar el nombre de la persona-->
@@ -89,7 +86,7 @@ session_start();
             <input type="hidden" name="numero_cuenta" id="numero_cuenta" value="<?php echo ($_SESSION['numero_cuenta']); ?>">
             <input type="hidden" name="saldo" id="saldo" value="<?php echo ($_SESSION['saldo']); ?>">
 
-            <button type="button" class="btn btn-success" id="transferir">Aceptar Transferencia</button>
+            <button type="button" class="btn btn-dark w-100 mt-4" id="transferir">Aceptar Transferencia</button>
         </form>
     </div>
  

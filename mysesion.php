@@ -2,14 +2,14 @@
 require 'db_conexion.php';
 session_start();
 
-if(isset ($_POST["desactivar"])){
+if (isset($_POST["desactivar"])) {
     $actived = "no";
 
-        if (!empty($actived)) {
-            $update = $cnnPDO->prepare("UPDATE usuarios SET estado = ? WHERE correo=?");
-            $update->execute([$actived, $_SESSION["correo"]]);
-            require_once 'msj_desactivar.php';
-        }
+    if (!empty($actived)) {
+        $update = $cnnPDO->prepare("UPDATE usuarios SET estado = ? WHERE correo=?");
+        $update->execute([$actived, $_SESSION["correo"]]);
+        require_once 'msj_desactivar.php';
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -88,8 +88,8 @@ if(isset ($_POST["desactivar"])){
                     <p class="text-secondary mb-0">Ultimos movimientos</p>
                     <p class="text-secondary mb-0">Disponible</p>
                 </div>
-                <div class="container-fluid d-flex pt-1 justify-content-between border-bottom border-secondary-subtle ">
-                    <div class="d-flex">
+                <div class="container-fluid d-flex pt-1 justify-content-between align-items-center border-bottom border-secondary-subtle ">
+                    <div class="d-flex align-items-center">
                         <i class="fa-solid fa-wallet fs-2 mx-3"></i>
                         <div>
                             <p class="m-0 datos-cuentas">Alias 1</p>
@@ -97,33 +97,10 @@ if(isset ($_POST["desactivar"])){
                             <p class="m-0 datos-cuentas">Tipo: <?php echo ($_SESSION['tipo_cuenta']); ?> </p>
                         </div>
                     </div>
-                    <p>10</p>
-                    <p> $ <?php echo ($_SESSION['saldo']); ?></p>
+                    <p class="my-0">10</p>
+                    <p class="my-0"> $ <?php echo ($_SESSION['saldo']); ?></p>
                 </div>
-                <div class="container-fluid d-flex pt-1 justify-content-between border-bottom border-secondary-subtle ">
-                    <div class="d-flex">
-                        <i class="fa-solid fa-wallet fs-2 mx-3"></i>
-                        <div>
-                            <p class="m-0 datos-cuentas">Alias 2</p>
-                            <p class="m-0 datos-cuentas fw-bold"><?php echo ($_SESSION['numero_cuenta']); ?> </p>
-                            <p class="m-0 datos-cuentas">Tipo: <?php echo ($_SESSION['tipo_cuenta']); ?> </p>
-                        </div>
-                    </div>
-                    <p>10</p>
-                    <p>30,484.10 MXN</p>
-                </div>
-                <div class="container-fluid d-flex pt-1 justify-content-between border-bottom border-secondary-subtle ">
-                    <div class="d-flex">
-                        <i class="fa-solid fa-wallet fs-2 mx-3"></i>
-                        <div>
-                            <p class="m-0 datos-cuentas">Alias 3</p>
-                            <p class="m-0 datos-cuentas fw-bold"><?php echo ($_SESSION['numero_cuenta']); ?> </p>
-                            <p class="m-0 datos-cuentas">Tipo: <?php echo ($_SESSION['tipo_cuenta']); ?> </p>
-                        </div>
-                    </div>
-                    <p>10</p>
-                    <p>30,484.10 MXN</p>
-                </div>
+
                 <div class="container-fluid bg-secondary d-flex justify-content-between border-bottom border-secondary-subtle text-light">
                     <p class="mb-0">Cuenta en dolares</p>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -132,7 +109,6 @@ if(isset ($_POST["desactivar"])){
                     <p class="mb-0">Tarjetas de Credito</p>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
-
             </div>
             <div class="col-4">
                 <p class="fw-medium">Mis favoritos</p>
